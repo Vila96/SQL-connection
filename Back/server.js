@@ -1,8 +1,7 @@
+////////GENERAL////////
 const express = require("express");
+const app = express();
 const mysql = require("mysql");
-
-const app = express()
-
 const port = process.env.PORT || 5000;
 
 const connection = mysql.createConnection({
@@ -12,6 +11,23 @@ const connection = mysql.createConnection({
     database: "databaseTest",
     port: "3306"
 })
+
+app.use(express.json())
+
+////////CONNECTION TO DB(SQL)////////
+
+connection.connect((err) => {
+    if(err) {
+        console.log(err)
+    }
+    else {
+        console.log("connected")
+    }
+})
+
+app.listen(port);
+
+console.log("App is listening on port " + port)
 
 ////////CREATE TABLE////////
 connection.query(
@@ -39,16 +55,18 @@ connection.query(
 )
 */
 
-connection.connect((err) => {
-    if(err) {
-        console.log(err)
-    }
-    else {
-        console.log("connected")
-    }
-})
 
-app.listen(port);
+////////GET DATA FROM TABLE////////
 
-console.log("App is listening on port " + port)
+connection.query(
+    "SELECT * FROM testtable", (err, rows) => {
+        if(err) {
+            throw err
+        } else {
+            console.log("DATA SUCCESFULLY TAKEN");
+            console.log(rows)
+        }
+    }
+)
+
 
