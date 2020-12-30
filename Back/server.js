@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const port = process.env.PORT || 5000;
+//Imports
+const apiRouter = require("./routes")
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -14,8 +16,9 @@ const connection = mysql.createConnection({
 
 app.use(express.json())
 
-////////CONNECTION TO DB(SQL)////////
+app.use("/api/chirps", apiRouter);
 
+////////CONNECTION TO DB(SQL)////////
 connection.connect((err) => {
     if(err) {
         console.log(err)
@@ -28,6 +31,8 @@ connection.connect((err) => {
 app.listen(port);
 
 console.log("App is listening on port " + port)
+
+
 
 ////////CREATE TABLE////////
 connection.query(
@@ -54,19 +59,5 @@ connection.query(
     }
 )
 */
-
-
-////////GET DATA FROM TABLE////////
-
-connection.query(
-    "SELECT * FROM testtable", (err, rows) => {
-        if(err) {
-            throw err
-        } else {
-            console.log("DATA SUCCESFULLY TAKEN");
-            console.log(rows)
-        }
-    }
-)
 
 
