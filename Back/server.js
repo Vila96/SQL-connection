@@ -2,7 +2,7 @@
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 //Imports
 const apiRouter = require("./routes")
 
@@ -61,3 +61,7 @@ connection.query(
 */
 
 
+//Tests
+app.get("/", (req, res) => {
+    res.send("Hello World")
+})

@@ -1,5 +1,4 @@
 //ROUTES
-
 const express = require("express");
 const routes = express.Router();
 
@@ -7,7 +6,7 @@ const routes = express.Router();
 const db = require("../db")
 
 
-
+////////ROUTES////////
 routes.get("/", async (req, res, next) => {
     
     try {
