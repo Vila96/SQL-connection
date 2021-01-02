@@ -16,7 +16,9 @@ function App() {
     }).then(() => {
       console.log("data sent to back")
       console.log(setTestDb, setTest2Db)
-
+      setDbData([...dbData, {
+        testDb: setTestDb, 
+        test2Db: setTest2Db}])
     })
   }
   
@@ -29,7 +31,10 @@ function App() {
 
   const mapData = dbData.map((val, key) => {
     return (
-      <div> <p>{val.test}</p></div>
+      <div className="dataContainer"> 
+        <p>{val.test}</p>
+        <p>{val.test2}</p>
+      </div>
 
     )
   })
@@ -45,9 +50,11 @@ function App() {
         <input type="text" name="addTest2" onChange={(event) => {setTest2Db = event.target.value}}></input>
         <button onClick={insertTest}>Add</button>
         
-        <div>
+        <div >
           <button onClick={getDbData}>Show all data inside DB</button>
-          {mapData}
+          <div class="getContainer">
+            {mapData}
+          </div>
         </div>
         
           <h3>Coming soon</h3>
