@@ -75,24 +75,52 @@ app.post("/create", (req, res) => {
 
     connection.query(
         "INSERT INTO testtable (test, test2) VALUES (?, ?)", [test1, test2],
-        (err, result) => {
-            if(err) {
-                console.log(err)
-            } else {
-                res.send("Values inserted")
+            (err, result) => {
+                if(err) {
+                    console.log(err)
+                } else {
+                    res.send("Values inserted")
+                }
             }
-        }
     )
 
 })
 
 app.get("/get", (req, res) => {
     connection.query("SELECT * FROM testtable", 
-    (err, result) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.send(result)
-        }
+        (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.send(result)
+            }
+        })
+})
+
+app.put("/update", (req, res) => {
+    const id = req.body.id;
+    const test1 = req.body.test;
+
+
+    connection.query("UPDATE testtable SET test = ? WHERE id = ?", [test1, id], 
+        (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.send(result)
+                console.log(result)
+            }
     })
+})
+
+app.delete("/delete/:id", (req, res) => {
+    const id = req.params.id
+    connection.query("DELETE FROM testtable WHERE id = ?", [id],
+        (err, result) => {
+            if(err) {
+                console.log(err)
+            } else {
+                res.send(result)
+            }
+        })
 })
